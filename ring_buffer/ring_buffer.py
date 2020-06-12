@@ -24,7 +24,13 @@ class RingBuffer:
 
     def get(self):
 
-        return self.buffer
+        removed_nones = []
+
+        for el in self.buffer:
+            if el != None:
+                removed_nones.append(el)
+
+        return removed_nones
 
 
 ring = RingBuffer(5)
