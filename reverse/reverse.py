@@ -44,33 +44,26 @@ class LinkedList:
 
     def reverse_list(self, node, prev):
 
-        if node is None:
-            return None
+        if node is not None:
 
-        prev = None
+            nxt = node.next_node  # equal to 4
 
-        if node.next_node:
-            self.reverse_list(node.next_node, node)
+            node.next_node = prev  # equal to none
+            self.reverse_list(nxt, node)
 
-        if prev:
-            node.next_node = prev
-
-        elif prev is None:
-            node.next_node = None
+        else:
+            self.head = prev
 
 
 test_list = LinkedList()
 
 test_list.add_to_head(1)
-print(test_list.head.value)
 test_list.add_to_head(2)
-print(test_list.head.value)
 test_list.add_to_head(3)
-print(test_list.head.value)
 test_list.add_to_head(4)
-print(test_list.head.value)
 test_list.add_to_head(5)
+# 5,4,3,2,1
+# we want it to be 1,2,3,4,5
+# head should be 1
 print(test_list.head.value)
-
 test_list.reverse_list(test_list.head, None)
-print(test_list.head.value)
