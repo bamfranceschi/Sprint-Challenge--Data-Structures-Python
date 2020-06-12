@@ -3,6 +3,9 @@ class Node:
         self.value = value
         self.next_node = next_node
 
+    def __repr__(self):
+        return f"{self.value}"
+
     def get_value(self):
         return self.value
 
@@ -41,15 +44,33 @@ class LinkedList:
 
     def reverse_list(self, node, prev):
 
-        if self.head is None:
+        if node is None:
             return None
 
         prev = None
 
-        current = node
+        if node.next_node:
+            self.reverse_list(node.next_node, node)
 
-        if current is not None:
+        if prev:
+            node.next_node = prev
 
-            current.set_next(prev)
-            prev = current
-            prev.set_next(current)
+        elif prev is None:
+            node.next_node = None
+
+
+test_list = LinkedList()
+
+test_list.add_to_head(1)
+print(test_list.head.value)
+test_list.add_to_head(2)
+print(test_list.head.value)
+test_list.add_to_head(3)
+print(test_list.head.value)
+test_list.add_to_head(4)
+print(test_list.head.value)
+test_list.add_to_head(5)
+print(test_list.head.value)
+
+test_list.reverse_list(test_list.head, None)
+print(test_list.head.value)
