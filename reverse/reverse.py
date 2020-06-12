@@ -49,7 +49,7 @@ class LinkedList:
         current = node
 
         if current is not None:
-            prev = current.next_node
-            current.next_node = current
-            current = current.next_node
-            current.set_next(node)
+
+            current.set_next(prev)
+            prev = current
+            prev.set_next(current)

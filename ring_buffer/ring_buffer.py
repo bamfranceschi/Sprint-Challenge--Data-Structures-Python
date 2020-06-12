@@ -1,9 +1,8 @@
 class RingBuffer:
     def __init__(self, capacity):
         self.capacity = capacity
-        self.oldest = oldest
-        self.newest = newest  # where we write
-        self.buffer = []
+        self.buffer = [None for i in range(capacity)]
+        self.start = self.end = -1
 
     def __len__(self):
         return len(self.buffer)
@@ -13,36 +12,32 @@ class RingBuffer:
         return f"{self.buffer}"
 
     def append(self, item):
-        self.oldest = self.buffer[0]
-        self.newest = self.buffer[0]
-        # understand if buffer is empty
-        if len(self.buffer) == 0:
-            # if buffer is not empty, add item
-            self.buffer.append(item)
-            self.oldest = self.buffer[0]
-            self.newest = self.buffer[0]
-        # if buffer is at capacity, overwrite oldest item with new item
-        if len(self.buffer) < self.capacity:
-            self.buffer.append(item)
-            self.newest = self.buffer[item]
-            print(self.newest)
 
-        # if len(self.buffer) == self.capacity:
+        if self.start == -1:
+            self.start = 0
+            self.end = 0
+            self.buffer[self.end] = item
 
-            # if buffer.length = capacity:
-            #buffer.oldest = item
+        else:
+            self.end = (self.end + 1) % self.capacity
+            self.buffer[self.end] = item
 
     def get(self):
-        # if buffer is empty, return empty array
-        # if buffer is not empty, return all values in capacity, except when value is none
+
         return self.buffer
 
 
 ring = RingBuffer(5)
 
 ring.append("a")
+print(ring)
 ring.append("b")
+print(ring)
 ring.append("c")
+print(ring)
 ring.append("d")
-
+print(ring)
+ring.append("e")
+print(ring)
+ring.append("f")
 print(ring)
