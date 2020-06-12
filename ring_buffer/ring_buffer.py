@@ -1,9 +1,49 @@
 class RingBuffer:
     def __init__(self, capacity):
-        pass
+        self.capacity = capacity
+        self.buffer = [None for i in range(capacity)]
+        self.start = self.end = -1
+
+    def __len__(self):
+        return len(self.buffer)
+
+    def __repr__(self):
+
+        return f"{self.buffer}"
 
     def append(self, item):
-        pass
+
+        if self.start == -1:
+            self.start = 0
+            self.end = 0
+            self.buffer[self.end] = item
+
+        else:
+            self.end = (self.end + 1) % self.capacity
+            self.buffer[self.end] = item
 
     def get(self):
-        pass
+
+        removed_nones = []
+
+        for el in self.buffer:
+            if el != None:
+                removed_nones.append(el)
+
+        return removed_nones
+
+
+ring = RingBuffer(5)
+
+ring.append("a")
+print(ring)
+ring.append("b")
+print(ring)
+ring.append("c")
+print(ring)
+ring.append("d")
+print(ring)
+ring.append("e")
+print(ring)
+ring.append("f")
+print(ring)
